@@ -13,14 +13,24 @@ exports.healthCheck = (req, res) => {
 
 exports.handleChat = async (req, res) => {
     try {
-        const messages = req.body.messages
+        console.log(req.session.id)
 
-        const chat = await client.chat.completions.create({
-            messages: messages,
-            model: "gpt-3.5-turbo-1106"
-        });
-
-        res.status(200).json(chat.choices[0])
+        // let messages = req.session.messages
+        //
+        // if (!messages) {
+        //     messages = [{ "role": "system", "content": "You are a helpful assistant." }]
+        // }
+        //
+        // messages.push(req.body.messages)
+        //
+        // const chat = await client.chat.completions.create({
+        //     messages: messages,
+        //     model: "gpt-3.5-turbo-1106"
+        // });
+        //
+        // messages.push(chat.choices[0].message)
+        //
+        // res.status(200).json(chat.choices[0])
     } catch (error) {
         console.log(error)
 

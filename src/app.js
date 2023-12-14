@@ -3,7 +3,7 @@ require('dotenv').config();
 
 // Import modules
 const express = require('express')
-const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const app = express();
 
@@ -12,6 +12,18 @@ const v1Router = require('./routes/v1');
 
 // Middleware apps
 app.use(express.json());
+app.use(session({
+    secret: process.env.SESSION_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+    },
+    proxy: true,
+    unset: 'destroy'
+}));
 
 // Environment variables
 const port = process.env.PORT;
